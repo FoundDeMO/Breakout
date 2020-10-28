@@ -50,6 +50,8 @@ void setup() {
 
   fullScreen(FX2D);
   mode = INTRO;
+  
+  lives = 8;
 
   //array setup
   n = 152;

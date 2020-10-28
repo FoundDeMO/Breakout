@@ -2,7 +2,9 @@ void game() {
 
   //design
   background(0);
-
+  textFont(player2);
+  textSize(40);
+  text("LIVES:"+lives, width-150, height-100);
 
   //mechanics
   timer = timer + 1;
@@ -13,20 +15,31 @@ void game() {
 
   //ball
   fill(255);
-  circle(ballx, bally, balld);
+  square(ballx, bally, balld);
 
   //move ball
-  if (timer > 100) {
+  if (timer > 150) {
     ballx = ballx + vx;
     bally = bally + vy;
   }
 
   //ball bouncing
-  if (bally < balld/2 || bally > height-balld/2) {
+  if (bally < balld/2) {
     vy = vy * -1;
   }
   if (ballx < balld/2 || ballx > width-balld/2) {
     vx = vx * -1;
+  }
+  if (bally > height-balld/2) {
+  lives = lives - 1;
+    ballx = width/2;
+    bally = height/1.3;
+    timer = 0;
+  }
+  
+  //lives
+  if (lives == 0) {
+  mode = GAMEOVER;
   }
 
   //paddles bouncing
