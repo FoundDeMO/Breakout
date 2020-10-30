@@ -8,7 +8,22 @@ void intro() {
   textAlign(CENTER, CENTER);
   textSize(introm);
   text("BREAKOUT", width/2, height/4);
+  textSize(20);
+  text("Farzat Selo", width-115, height-20);
 
+  //ball
+  fill(255);
+  square(ballx, bally, balld);
+  ballx = ballx + vx;
+  bally = bally + vy;
+
+  //ball bouncing
+  if (bally < balld/2 || bally > height-balld/2) {
+    vy = vy * -1;
+  }
+  if (ballx < balld/2 || ballx > width-balld/2) {
+    vx = vx * -1;
+  }
   //mechanics
   introm = introm + 0.1;
   if (introm > 160) {
@@ -31,6 +46,7 @@ void intro() {
 
 void introClicks() {
 
-  mode = GAME;
-
+  ballx = width/2;
+  bally = height/1.3;
+  mode = TIPS;
 }

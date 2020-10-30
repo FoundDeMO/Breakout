@@ -1,7 +1,14 @@
 void game() {
 
   //design
+  noStroke();
   background(0);
+
+  image(gif[frame], 0, 0, 4000, 2500);
+  if (frameCount % 5 == 0) {
+  frame = frame + 1;
+  }
+  if (frame == 5) frame = 0;
   textFont(player2);
   textSize(40);
   text("LIVES:"+lives, width-150, height-100);
@@ -30,16 +37,16 @@ void game() {
   if (ballx < balld/2 || ballx > width-balld/2) {
     vx = vx * -1;
   }
-  if (bally > height-balld/2) {
-  lives = lives - 1;
+  if (bally > height+10) {
+    lives = lives - 1;
     ballx = width/2;
     bally = height/1.3;
     timer = 0;
   }
-  
+
   //lives
   if (lives == 0) {
-  mode = GAMEOVER;
+    mode = GAMEOVER;
   }
 
   //paddles bouncing
@@ -59,18 +66,35 @@ void game() {
     paddlex = paddlex +10;
   }
 
+
   //bricks
 
   int i = 0;
   while (i < n) {
-
-    square(x[i], y[i], brickd);
-    //brick bounce
-    if (dist(x[i], y[i], ballx, bally) < brickd/2 + balld/2) {
-      vx = (ballx - x[i])/3;
-      vy = (bally - y[i])/3;
+    if (alive[i] == true) {
+      manageBrick(i);
     }
     i++;
+  }
+  if (score == 152) {
+    mode = VICTORY;
+  }
+}
+
+void manageBrick(int i) {
+
+  if (y [i] == 50) fill(150);
+  if (y [i] == 120) fill(170);
+  if (y [i] == 190) fill(200);
+  if (y [i] == 260) fill(230);
+  if (y [i] == 330) fill(255);
+  square(x[i], y[i], brickd);
+  //brick bounce
+  if (dist(x[i], y[i], ballx, bally) < brickd/2 + balld/2) {
+    vx = (ballx - x[i])/3;
+    vy = (bally - y[i])/3;
+    alive[i] = false;
+    score++;
   }
 }
 
